@@ -31,16 +31,12 @@ public class DetailViewActivity extends AppCompatActivity {
         String strObj = getIntent().getStringExtra("article");
         Article article = gson.fromJson(strObj, Article.class);
 
-
-        Log.i("TAG", "inside Detail Activity " + article.getAuthor());
-
         final Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowTitleEnabled(false);
         }
-
 
         ImageView image = findViewById(R.id.backdrop);
         Picasso.get()
@@ -58,17 +54,12 @@ public class DetailViewActivity extends AppCompatActivity {
 
         TextView source = findViewById(R.id.sourceTextView);
         source.setText(article.getSourceName());
-
-
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) // Press Back Icon
-        {
+        if (item.getItemId() == android.R.id.home)
             finish();
-        }
-
         return super.onOptionsItemSelected(item);
     }
 }

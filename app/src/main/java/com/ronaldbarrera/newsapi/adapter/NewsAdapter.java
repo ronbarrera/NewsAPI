@@ -1,7 +1,6 @@
-package com.ronaldbarrera.newsapi;
+package com.ronaldbarrera.newsapi.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.ronaldbarrera.newsapi.R;
 import com.ronaldbarrera.newsapi.model.Article;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.OkHttp3Downloader;
@@ -35,9 +35,6 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsAdapterVie
     public interface NewsAdapterOnClickHandler {
         void onClick(Article article);
     }
-
-
-
 
     public class NewsAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -82,10 +79,8 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsAdapterVie
         String source = context.getResources().getString(R.string.bySource) + " " + dataList.get(position).getSourceName();
         holder.sourceNameTextView.setText(source);
 
-        Picasso.Builder builder = new Picasso.Builder(context);
-        builder.downloader(new OkHttp3Downloader(context));
-        builder.build().load(dataList.get(position).getUrlToImage())
-                .error(R.drawable.gradient_background)
+        Picasso.get()
+                .load(dataList.get(position).getUrlToImage())
                 .into(holder.coverImage, new Callback() {
                     @Override
                     public void onSuccess() {
@@ -94,7 +89,7 @@ public class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.NewsAdapterVie
 
                     @Override
                     public void onError(Exception e) {
-
+                        e.printStackTrace();
                     }
                 });
     }
